@@ -1,0 +1,15 @@
+{
+  "action": "opened",
+  "issue": {
+    "number": 100,
+    "user": {
+      "login": "Im-D"
+    }
+  },
+  "repository": {
+    "name": "probot-practice",
+    "owner": {
+      "login": "Im-D"
+    }
+  }
+}

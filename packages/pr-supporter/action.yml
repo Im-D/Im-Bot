@@ -1,0 +1,12 @@
+name: 'PR-Supporter'
+description: 'PR-Supporter'
+
+# inputs:
+#   token:  # id of input
+#     description: 'github token'
+#     required: true
+#     default: ''
+
+runs:
+  using: 'node12'
+  main: 'index.js'

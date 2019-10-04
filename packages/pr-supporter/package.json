@@ -1,0 +1,27 @@
+{
+  "name": "pr-supporter",
+  "version": "1.0.0",
+  "description": "pr-supporter",
+  "author": "Im-D <jp302119@gmail.com> (https://github.com/Im-D)",
+  "license": "MIT",
+  "repository": "https://github.com//pr-supporter.git",
+  "homepage": "https://github.com//pr-supporter",
+  "bugs": "https://github.com//pr-supporter/issues",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint index.js",
+    "test": "eslint index.js && jest"
+  },
+  "keywords": [
+    "Actions",
+    "JavaScript"
+  ],
+  "dependencies": {
+    "@actions/core": "^1.1.1",
+    "@actions/github": "^1.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.3.0",
+    "jest": "^24.9.0"
+  }
+}
