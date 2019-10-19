@@ -1,6 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const reviewerList = require('reviewerList.json')
+const reviewerList = require('./reviewerList.json')
 
 async function run() {
   try {
