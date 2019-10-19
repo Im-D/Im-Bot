@@ -6,9 +6,9 @@ async function run() {
   try {
     const myToken = core.getInput('myToken');
     const octokit = new github.GitHub(myToken);
+    const author  = github.context.payload.pull_request.user.login
     const { owner, repo, number } = github.context.issue
-    console.log(owner)
-
+    console.log(author)
     if(!number) {
       console.warn("Dont have number")
       return 
