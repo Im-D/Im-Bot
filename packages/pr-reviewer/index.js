@@ -14,7 +14,7 @@ async function run() {
       return 
     }
     
-    const reviewers = reviewerList.reviewers && reviewerList.reviewerList.filter(reviewer => {
+    const reviewers = reviewerList.reviewers && reviewerList.reviewers.filter(reviewer => {
       return reviewer !== author
     })
 
