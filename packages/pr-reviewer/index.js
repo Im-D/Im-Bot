@@ -8,16 +8,17 @@ async function run() {
     const octokit = new github.GitHub(myToken);
     const author  = github.context.payload.pull_request.user.login
     const { owner, repo, number } = github.context.issue
-    console.log(author)
+
     if(!number) {
       console.warn("Dont have number")
       return 
     }
     
-    // const reviewers = reviewerList.reviewers && reviewerList.reviewerList.filter(reviewer => {
-    //   return 
-    // })
-    octokit.pulls.createReviewRequest({ owner, repo, pull_number:number, reviewers: reviewerList.reviewers })
+    const reviewers = reviewerList.reviewers && reviewerList.reviewerList.filter(reviewer => {
+      return reviewer !== author
+    })
+
+    octokit.pulls.createReviewRequest({ owner, repo, pull_number:number, reviewers: reviewers })
   }
   catch (error) {
     core.setFailed(error.message);
