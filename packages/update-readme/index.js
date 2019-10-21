@@ -1,6 +1,14 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
+const updateReadme = (owner, repo, path, message, content) => octokit.repos.updateFile({
+  owner,
+  repo,
+  path,
+  message,
+  content
+})
+
 async function run() {
   try { 
     const myToken = core.getInput('myToken');
@@ -10,14 +18,17 @@ async function run() {
 
     const path = 'README.md'
 
-    octokit.repos.getContents({
+    const contents = await octokit.repos.getContents({
       owner,
       repo,
       path,
-    }).then((contents)=>{
-      console.log('content__', contents.data.content)
     })
 
+    const originalData = atob(contents.data.content)
+    
+    updateReadme(owner, repo, path, "update README.md", '')
+    
+    console.log('content__', originalData)
     console.log('payload__', payload)
   } 
   catch (error) {
