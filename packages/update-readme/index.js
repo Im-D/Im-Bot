@@ -8,10 +8,12 @@ async function run() {
     const payload  = github.context.payload
     const { owner, repo, number } = github.context.issue
 
+    const path = 'README.md'
+
     const content = octokit.repos.getContents({
       owner,
       repo,
-      'README.md',
+      path,
     })
 
     core.debug('payload__', payload)
