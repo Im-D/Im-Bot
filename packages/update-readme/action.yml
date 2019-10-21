@@ -1,0 +1,8 @@
+name: 'Update-README'
+description: 'Update Link in README.md'
+who-to-greet: 
+    description: 'Your Github Token'
+    required: true
+runs:
+  using: 'node12'
+  main: 'index.js'
