@@ -10,14 +10,15 @@ async function run() {
 
     const path = 'README.md'
 
-    const content = octokit.repos.getContents({
+    octokit.repos.getContents({
       owner,
       repo,
       path,
+    }).then((contents)=>{
+      console.log('content__', contents)
     })
 
     console.log('payload__', payload)
-    console.log('content__', content, content.content)
   } 
   catch (error) {
     core.setFailed(error.message);
