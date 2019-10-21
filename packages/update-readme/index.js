@@ -16,8 +16,8 @@ async function run() {
       path,
     })
 
-    core.debug('payload__', payload)
-    core.debug('content__', content, content.content)
+    console.log('payload__', payload)
+    console.log('content__', content, content.content)
   } 
   catch (error) {
     core.setFailed(error.message);
