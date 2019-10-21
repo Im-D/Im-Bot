@@ -15,7 +15,7 @@ async function run() {
       repo,
       path,
     }).then((contents)=>{
-      console.log('content__', contents)
+      console.log('content__', contents.data.content)
     })
 
     console.log('payload__', payload)
