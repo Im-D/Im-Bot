@@ -8,6 +8,10 @@ inputs:
     description: 'Where to add'
     required: true
     default: ''
+  targetPath: 
+    description: 'Target File Path'
+    required: true
+    default: 'README.md'
 runs:
   using: 'node12'
   main: 'index.js'

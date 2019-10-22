@@ -4,12 +4,11 @@ const github = require('@actions/github');
 const { getReadme, updateReadme, updatedFilelist } = require('../common/octokit')
 const { createFilelink } = require('../common/util')
 
-const README_PATH = 'README.md'
-
 async function run() {
   try {
     const myToken = core.getInput('myToken');
     const linkLocTarget = core.getInput('linkLocTarget');
+    const TARGET_PATH = core.getInput('targetPath');
 
     const octokit = new github.GitHub(myToken);
     const { pull_request, sender } = github.context.payload
@@ -33,7 +32,7 @@ async function run() {
     const newContent = Buffer.from(splitContent[0] + linkLocTarget + '\n' + fileLinkContent + splitContent[1], 'utf8').toString('base64');
 
     // Update README
-    await updateReadme(octokit, owner, repo, README_PATH, "update README.md", newContent, sha)
+    await updateReadme(octokit, owner, repo, TARGET_PATH, `📝 Create Link at ${TARGET_PATH}`, newContent, sha)
   }
   catch (error) {
     core.setFailed(error.message);
