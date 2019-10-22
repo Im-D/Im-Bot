@@ -1,14 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
-const updateReadme = (owner, repo, path, message, content) => octokit.repos.updateFile({
-  owner,
-  repo,
-  path,
-  message,
-  content
-})
-
 async function run() {
   try { 
     const myToken = core.getInput('myToken');
@@ -24,11 +16,20 @@ async function run() {
       path,
     })
 
-    const originalData = atob(contents.data.content)
+    const buff = new Buffer(contents.data.content);
+    const base64data = buff.toString('base64');
+
+    const updateReadme = (owner, repo, path, message, content) => octokit.repos.updateFile({
+      owner,
+      repo,
+      path,
+      message,
+      content
+    })
     
     updateReadme(owner, repo, path, "update README.md", '')
     
-    console.log('content__', originalData)
+    console.log('content__', base64data)
     console.log('payload__', payload)
   } 
   catch (error) {
