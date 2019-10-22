@@ -1,7 +1,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
-const { updateReadme, updatedFilelist } = require('../common/octokit')
+const { getReadme, updateReadme, updatedFilelist } = require('../common/octokit')
 const { createFilelink } = require('../common/util')
 
 const README_PATH = 'README.md'
@@ -14,13 +14,10 @@ async function run() {
     const octokit = new github.GitHub(myToken);
     const {pull_request, sender} = github.context.payload
     const { owner, repo, number } = github.context.issue
-    const { data: { content, sha } } = await octokit.repos.getReadme({
-      owner,
-      repo
-    })
+    const { data: { content, sha } } = getReadme( octokit, owner, repo )
     
     // Create Updated(Create) Markdown files
-    const fileList = updatedFilelist(owner, repo, number)
+    const fileList = updatedFilelist(octokit, owner, repo, number)
     const fileLinkContent = fileList.data.reduce((acc, cur) => {
       if (cur.filename.match(/\.(md|markdown)$/)) {
         const link = createFilelink(pull_request.head, cur.filename)

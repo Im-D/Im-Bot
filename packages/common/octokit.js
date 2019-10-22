@@ -1,3 +1,7 @@
+const getReadme = async (octokit, owner, repo) => {
+  return await octokit.repos.getReadme({ owner, repo })
+}
+
 const updateReadme = async (octokit, owner, repo, path, message, content, sha) => {
   return await octokit.repos.createOrUpdateFile({
     owner,
@@ -9,13 +13,12 @@ const updateReadme = async (octokit, owner, repo, path, message, content, sha) =
   })
 }
 
-const updatedFilelist = async (owner, repo, pull_number) => {
+const updatedFilelist = async (octokit, owner, repo, pull_number) => {
   return await octokit.pulls.listFiles({ owner, repo, pull_number })
 }
 
-const createFileLink = (headData, fileName) => headData.repo.html_url + path.join('/blob', headData.ref, fileName)
-
 module.exports = {
+  getReadme,
   updateReadme,
   updatedFilelist
 }
