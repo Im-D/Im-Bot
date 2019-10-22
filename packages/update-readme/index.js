@@ -19,7 +19,7 @@ async function run() {
     const fileList = await updatedFilelist(octokit, owner, repo, number)
     const fileLinkContent = fileList.data.reduce((acc, cur) => {
       if (cur.filename.match(/\.(md|markdown)$/)) {
-        const link = createFilelink(pull_request.head, cur.filename)
+        const link = createFilelink(pull_request.head, "master", cur.filename)
         acc += `- [x] ${sender.login} : [${cur.filename.split('.')[0]}](${link})\n`
       }
       return acc
