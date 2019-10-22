@@ -1,6 +1,19 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
+function fileLink(pullRequest, file) {
+  return pullRequest.head.repo.html_url + path.join('/blob', pullRequest.head.ref, file.filename)
+}
+
+const updateReadme = async (octokit, owner, repo, path, message, content, sha) => await octokit.repos.createOrUpdateFile({
+  owner,
+  repo,
+  path,
+  message,
+  content,
+  sha
+})
+
 async function run() {
   try { 
     const myToken = core.getInput('myToken');
@@ -15,20 +28,23 @@ async function run() {
       repo
     })
 
-    const buff = Buffer.from(readme.data.content, 'base64').toString('utf8');
+    const oldContent = Buffer.from(readme.data.content, 'base64').toString('utf8');
+    const fileList = await octokit.pulls.listFiles({ owner, repo, pull_number : number })
+    const fileLinkContent = fileList.data.reduce((acc, cur) => {
+      if (cur.filename.match(/\.(md|markdown)$/)) {
+        const link = fileLink(payload.pull_request, cur)
+        acc += `- [x] {} : [${cur.filename}](${link})\n`
+      }
+      return acc
+    }, '')
 
-    const updateReadme = async (owner, repo, path, message, content, sha) => await octokit.repos.createOrUpdateFile({
-      owner,
-      repo,
-      path,
-      message,
-      content,
-      sha
-    })
+    const newContent = Buffer.from(fileLinkContent, 'utf8').toString('base64');
 
-    console.log('payload__', readme)
-    console.log('content__', buff)
-    await updateReadme(owner, repo, path, "update README.md", '', readme.data.sha)
+    console.log('payload__', payload.sender.login)
+    console.log('content__', oldContent)
+    console.log('fileLink__', fileLinkContent)
+
+    await updateReadme(octokit, owner, repo, path, "update README.md", newContent, readme.data.sha)
   } 
   catch (error) {
     core.setFailed(error.message);
