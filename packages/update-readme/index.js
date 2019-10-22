@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
+const path = require('path')
 
 function fileLink(pullRequest, file) {
   return pullRequest.head.repo.html_url + path.join('/blob', pullRequest.head.ref, file.filename)
@@ -33,16 +34,12 @@ async function run() {
     const fileLinkContent = fileList.data.reduce((acc, cur) => {
       if (cur.filename.match(/\.(md|markdown)$/)) {
         const link = fileLink(payload.pull_request, cur)
-        acc += `- [x] {} : [${cur.filename}](${link})\n`
+        acc += `- [x] ${payload.sender.login} : [${cur.filename}](${link})\n`
       }
       return acc
     }, '')
 
     const newContent = Buffer.from(fileLinkContent, 'utf8').toString('base64');
-
-    console.log('payload__', payload.sender.login)
-    console.log('content__', oldContent)
-    console.log('fileLink__', fileLinkContent)
 
     await updateReadme(octokit, owner, repo, path, "update README.md", newContent, readme.data.sha)
   } 
