@@ -19,7 +19,7 @@ async function run() {
     const buff = new Buffer(contents.data.content, 'base64');
     const text = buff.toString('UTF-8');
 
-    const updateReadme = async (owner, repo, path, message, content, sha) => await octokit.repos.updateFile({
+    const updateReadme = async (owner, repo, path, message, content, sha) => await octokit.repos.createOrUpdateFile({
       owner,
       repo,
       path,
