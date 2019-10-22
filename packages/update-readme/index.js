@@ -16,8 +16,7 @@ async function run() {
       path,
     })
 
-    const buff = new Buffer(contents.data.content, 'base64');
-    const text = buff.toString('UTF-8');
+    const buff = Buffer.from(contents.data.content, 'base64').toString('utf8');
 
     const updateReadme = async (owner, repo, path, message, content, sha) => await octokit.repos.createOrUpdateFile({
       owner,
@@ -30,8 +29,8 @@ async function run() {
     
     await updateReadme(owner, repo, path, "update README.md", '', payload.pull_request.base.sha)
     
-    console.log('content__', text)
     console.log('payload__', payload.pull_request.base.sha)
+    console.log('content__', buff)
   } 
   catch (error) {
     core.setFailed(error.message);
