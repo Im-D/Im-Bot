@@ -14,12 +14,12 @@ async function run() {
     const octokit = new github.GitHub(myToken);
     const {pull_request, sender} = github.context.payload
     const { owner, repo, number } = github.context.issue
-    const readmeData = getReadme( octokit, owner, repo )
+    const readmeData = await getReadme( octokit, owner, repo )
 
     console.log('readmeData___', readmeData)
     
     // Create Updated(Create) Markdown files
-    const fileList = updatedFilelist(octokit, owner, repo, number)
+    const fileList = await updatedFilelist(octokit, owner, repo, number)
     const fileLinkContent = fileList.data.reduce((acc, cur) => {
       if (cur.filename.match(/\.(md|markdown)$/)) {
         const link = createFilelink(pull_request.head, cur.filename)
