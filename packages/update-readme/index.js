@@ -16,8 +16,8 @@ async function run() {
       path,
     })
 
-    const buff = new Buffer(contents.data.content);
-    const base64data = buff.toString('base64');
+    const buff = new Buffer(contents.data.content, 'base64');
+    const text = buff.toString('UTF-8');
 
     const updateReadme = (owner, repo, path, message, content) => octokit.repos.updateFile({
       owner,
@@ -29,7 +29,7 @@ async function run() {
     
     updateReadme(owner, repo, path, "update README.md", '')
     
-    console.log('content__', base64data)
+    console.log('content__', text)
     console.log('payload__', payload)
   } 
   catch (error) {
