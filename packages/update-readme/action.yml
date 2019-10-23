@@ -1,0 +1,17 @@
+name: 'Update-README-link'
+description: 'Update Link in README.md'
+inputs:
+  myToken: 
+    description: 'Github Token'
+    required: true
+  linkLocTarget: 
+    description: 'Where to add'
+    required: true
+    default: ''
+  targetPath: 
+    description: 'Target File Path'
+    required: true
+    default: 'README.md'
+runs:
+  using: 'node12'
+  main: 'index.js'
