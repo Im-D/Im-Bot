@@ -1,6 +1,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const reviewerList = require('./reviewerList.json')
+const { createReviewRequest } = require('../common/octokit')
 
 async function run() {
   try {
@@ -18,7 +19,7 @@ async function run() {
       return reviewer !== author
     })
 
-    octokit.pulls.createReviewRequest({ owner, repo, pull_number:number, reviewers: reviewers })
+    createReviewRequest(octokit, owner, repo, number, reviewers)
   }
   catch (error) {
     core.setFailed(error.message);
