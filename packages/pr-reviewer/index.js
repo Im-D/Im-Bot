@@ -3,7 +3,7 @@ const github = require('@actions/github');
 const reviewerList = require('./reviewerList.json')
 const { createReviewRequest } = require('../common/octokit')
 
-const REVIEWER_COUNT = 4
+const REVIEWER_COUNT = 5
 
 function getRandomItem(arr) {
   return arr[Math.floor(Math.random() * arr.length)]
