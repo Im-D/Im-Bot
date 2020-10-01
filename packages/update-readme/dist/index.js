@@ -10,7 +10,7 @@ const getReadme = async (octokit, owner, repo) => {
 }
 
 const updateReadme = async (octokit, owner, repo, path, message, content, sha) => {
-  return await octokit.repos.createOrUpdateFile({
+  return await octokit.repos.createOrUpdateFileContents({
     owner,
     repo,
     path,
