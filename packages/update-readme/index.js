@@ -10,7 +10,7 @@ async function run() {
     const linkLocTarget = core.getInput('linkLocTarget');
     const TARGET_PATH = core.getInput('targetPath');
 
-    const octokit = new github.GitHub(myToken);
+    const octokit = github.getOctokit(myToken)
     const { pull_request, sender } = github.context.payload
     const { owner, repo, number } = github.context.issue
     const { data: { content, sha } } = await getReadme(octokit, owner, repo)

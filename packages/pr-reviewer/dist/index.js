@@ -66,7 +66,7 @@ function getReviewerList(arr) {
 async function run() {
   try {
     const myToken = core.getInput('myToken')
-    const octokit = new github.GitHub(myToken)
+    const octokit = github.getOctokit(myToken)
     const author  = github.context.payload.pull_request.user.login
     const { owner, repo, number } = github.context.issue
 

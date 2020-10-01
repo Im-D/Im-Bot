@@ -10,7 +10,7 @@ function fileLink(pullRequest, file) {
 async function run() {
   try {
     const myToken = core.getInput('myToken');
-    const octokit = new github.GitHub(myToken);
+    const octokit = github.getOctokit(myToken)
     const payload  = github.context.payload
     const { owner, repo, number } = github.context.issue
 
