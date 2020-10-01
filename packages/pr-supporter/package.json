@@ -9,6 +9,7 @@
   "bugs": "https://github.com//pr-supporter/issues",
   "main": "index.js",
   "scripts": {
+    "prepare": "ncc build index.js -o dist --source-map --license licenses.txt",
     "lint": "eslint index.js",
     "test": "eslint index.js && jest"
   },
@@ -17,10 +18,11 @@
     "JavaScript"
   ],
   "dependencies": {
-    "@actions/core": "^1.1.1",
-    "@actions/github": "^1.1.0"
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0"
   },
   "devDependencies": {
+    "@vercel/ncc": "^0.24.1",
     "eslint": "^6.3.0",
     "jest": "^24.9.0"
   }
