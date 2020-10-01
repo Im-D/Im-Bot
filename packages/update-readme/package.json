@@ -4,6 +4,7 @@
   "description": "JavaScript Action Template",
   "main": "index.js",
   "scripts": {
+    "prepare": "ncc build index.js -o dist --source-map --license licenses.txt",
     "lint": "eslint index.js",
     "test": "eslint index.js && jest"
   },
@@ -28,6 +29,7 @@
     "btoa-atob": "^0.1.2"
   },
   "devDependencies": {
+    "@vercel/ncc": "^0.24.1",
     "eslint": "^6.3.0",
     "jest": "^24.9.0"
   }
