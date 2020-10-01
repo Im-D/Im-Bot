@@ -18,7 +18,7 @@ const updatedFilelist = async (octokit, owner, repo, pull_number) => {
 }
 
 const createReviewRequest = async (octokit, owner, repo, pull_number, reviewers) => {
-  return await octokit.pulls.createReviewRequest({ owner, repo, pull_number, reviewers })
+  return await octokit.pulls.requestReviewers({ owner, repo, pull_number, reviewers })
 }
 
 module.exports = {
